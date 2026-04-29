@@ -160,8 +160,49 @@ struct DashboardView: View {
 struct DonationRow: View {
     let donation: Donation
     var onDelete: (() -> Void)? = nil
+    @State private var offset: CGFloat = 0
+
+    private let deleteWidth: CGFloat = 80
 
     var body: some View {
+        ZStack(alignment: .trailing) {
+            Color.red
+                .overlay(
+                    Button {
+                        withAnimation(.spring(response: 0.3)) { offset = 0 }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { onDelete?() }
+                    } label: {
+                        Image(systemName: "trash.fill")
+                            .foregroundStyle(.white)
+                            .font(.system(size: 16, weight: .medium))
+                            .frame(width: deleteWidth)
+                    },
+                    alignment: .trailing
+                )
+
+            rowContent
+                .background(Color.tzCard)
+                .offset(x: offset)
+                .gesture(
+                    DragGesture(minimumDistance: 10, coordinateSpace: .local)
+                        .onChanged { value in
+                            guard value.translation.width < 0 else {
+                                if offset < 0 { offset = 0 }
+                                return
+                            }
+                            offset = max(value.translation.width, -deleteWidth)
+                        }
+                        .onEnded { value in
+                            withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) {
+                                offset = value.translation.width < -40 ? -deleteWidth : 0
+                            }
+                        }
+                )
+        }
+        .clipped()
+    }
+
+    private var rowContent: some View {
         HStack(spacing: 12) {
             Circle()
                 .fill(Color.tzPrimary.opacity(0.1))
@@ -191,15 +232,6 @@ struct DonationRow: View {
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 12)
-        .contextMenu {
-            if let onDelete {
-                Button(role: .destructive) {
-                    onDelete()
-                } label: {
-                    Label("Delete", systemImage: "trash")
-                }
-            }
-        }
     }
 }
 
