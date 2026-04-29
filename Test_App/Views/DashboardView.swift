@@ -4,6 +4,7 @@ import SwiftData
 struct DashboardView: View {
     var openSidebar: () -> Void
     @Query(sort: \Donation.date, order: .reverse) private var donations: [Donation]
+    @Environment(\.modelContext) private var context
     @AppStorage("goalIncome") private var goalIncome: Double = 0
     @AppStorage("goalPercent") private var goalPercent: Double = 10
 
@@ -136,7 +137,7 @@ struct DashboardView: View {
 
             VStack(spacing: 0) {
                 ForEach(Array(donations.prefix(5))) { donation in
-                    DonationRow(donation: donation)
+                    DonationRow(donation: donation) { context.delete(donation) }
                     if donation.id != donations.prefix(5).last?.id {
                         Divider().padding(.horizontal, 16)
                     }
@@ -158,6 +159,7 @@ struct DashboardView: View {
 
 struct DonationRow: View {
     let donation: Donation
+    var onDelete: (() -> Void)? = nil
 
     var body: some View {
         HStack(spacing: 12) {
@@ -189,6 +191,15 @@ struct DonationRow: View {
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 12)
+        .contextMenu {
+            if let onDelete {
+                Button(role: .destructive) {
+                    onDelete()
+                } label: {
+                    Label("Delete", systemImage: "trash")
+                }
+            }
+        }
     }
 }
 

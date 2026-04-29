@@ -3,6 +3,7 @@ import SwiftData
 
 struct ImpactView: View {
     @Query(sort: \Donation.date, order: .reverse) private var donations: [Donation]
+    @Environment(\.modelContext) private var context
     @AppStorage("goalIncome") private var goalIncome: Double = 0
     @AppStorage("goalPercent") private var goalPercent: Double = 10
     @State private var showGoalSheet = false
@@ -128,7 +129,7 @@ struct ImpactView: View {
             } else {
                 VStack(spacing: 0) {
                     ForEach(donations) { donation in
-                        DonationRow(donation: donation)
+                        DonationRow(donation: donation) { context.delete(donation) }
                         if donation.id != donations.last?.id {
                             Divider().padding(.horizontal, 16)
                         }
