@@ -1,6 +1,6 @@
-# Tzedaka Support
+# Give Support
 
-Thank you for using Tzedaka.
+Thank you for using Give.
 
 ## Contact
 
@@ -21,6 +21,6 @@ Swipe left on any donation in the list to delete it.
 Go to the Charities tab and swipe left on any entry to delete it.
 
 **Can I use the app on multiple devices?**  
-Currently Tzedaka stores data locally on one device. iCloud sync may be added in a future update.
+Currently Give stores data locally on one device. iCloud sync may be added in a future update.
 
-Last updated: April 2026
+Last updated: May 2026
