@@ -31,6 +31,7 @@ struct AddDonationView: View {
             .padding(.bottom, 40)
         }
         .background(Color.tzBackground.ignoresSafeArea())
+        .keyboardDoneButton()
         .sheet(isPresented: $showCharity) {
             CharityPickerSheet(selected: $charityName, category: $category)
         }

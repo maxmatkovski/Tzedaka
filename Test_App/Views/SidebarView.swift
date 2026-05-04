@@ -5,6 +5,9 @@ struct SidebarView: View {
     @Binding var selectedTab: AppTab
     @Binding var isOpen: Bool
     @Query private var donations: [Donation]
+    @AppStorage("userReligion") private var religionRaw: String = Religion.secular.rawValue
+
+    private var religion: Religion { Religion(rawValue: religionRaw) ?? .secular }
 
     private var yearTotal: Double {
         let year = Calendar.current.component(.year, from: .now)
@@ -16,7 +19,6 @@ struct SidebarView: View {
     var body: some View {
         ZStack(alignment: .leading) {
             Color.tzPrimary.ignoresSafeArea()
-
             VStack(alignment: .leading, spacing: 0) {
                 header
                 Divider().overlay(Color.white.opacity(0.15)).padding(.horizontal, 20)
@@ -30,10 +32,10 @@ struct SidebarView: View {
     private var header: some View {
         VStack(alignment: .leading, spacing: 4) {
             HStack(spacing: 10) {
-                Image(systemName: "star.of.david.fill")
+                Image(systemName: religion.icon)
                     .font(.system(size: 22))
                     .foregroundStyle(Color.tzGold)
-                Text("Tzedaka")
+                Text(religion.givingTerm)
                     .font(.system(size: 22, weight: .bold))
                     .foregroundStyle(.white)
             }
@@ -48,9 +50,7 @@ struct SidebarView: View {
 
     private var navItems: some View {
         VStack(alignment: .leading, spacing: 4) {
-            ForEach(AppTab.allCases, id: \.self) { tab in
-                navRow(tab)
-            }
+            ForEach(AppTab.allCases, id: \.self) { tab in navRow(tab) }
         }
         .padding(.top, 12)
     }
@@ -59,16 +59,11 @@ struct SidebarView: View {
         let active = selectedTab == tab
         return Button {
             selectedTab = tab
-            withAnimation(.spring(response: 0.32, dampingFraction: 0.82)) {
-                isOpen = false
-            }
+            withAnimation(.spring(response: 0.32, dampingFraction: 0.82)) { isOpen = false }
         } label: {
             HStack(spacing: 14) {
-                Image(systemName: tab.icon)
-                    .font(.system(size: 16))
-                    .frame(width: 22)
-                Text(tab.rawValue)
-                    .font(.system(size: 15, weight: active ? .semibold : .regular))
+                Image(systemName: tab.icon).font(.system(size: 16)).frame(width: 22)
+                Text(tab.rawValue).font(.system(size: 15, weight: active ? .semibold : .regular))
                 Spacer()
             }
             .foregroundStyle(active ? Color.tzGold : .white.opacity(0.75))
@@ -81,7 +76,7 @@ struct SidebarView: View {
     }
 
     private var footer: some View {
-        Text("Tzedaka · v1.0")
+        Text("Give · v1.0")
             .font(.system(size: 11))
             .foregroundStyle(.white.opacity(0.3))
             .padding(.horizontal, 20)
