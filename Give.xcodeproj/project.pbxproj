@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		501B20ED2FA256C500E4DCDB /* Tzedaka Charity.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tzedaka Charity.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		501B20ED2FA256C500E4DCDB /* Give.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Give.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -40,7 +40,7 @@
 		501B20EE2FA256C500E4DCDB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				501B20ED2FA256C500E4DCDB /* Tzedaka Charity.app */,
+				501B20ED2FA256C500E4DCDB /* Give.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -67,7 +67,7 @@
 			packageProductDependencies = (
 			);
 			productName = Test_App;
-			productReference = 501B20ED2FA256C500E4DCDB /* Tzedaka Charity.app */;
+			productReference = 501B20ED2FA256C500E4DCDB /* Give.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -266,7 +266,8 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "OME.Test-App";
-				PRODUCT_NAME = "Tzedaka Charity";
+				INFOPLIST_KEY_CFBundleDisplayName = Give;
+				PRODUCT_NAME = Give;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
@@ -299,7 +300,8 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "OME.Test-App";
-				PRODUCT_NAME = "Tzedaka Charity";
+				INFOPLIST_KEY_CFBundleDisplayName = Give;
+				PRODUCT_NAME = Give;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
